@@ -15,7 +15,9 @@ FROM i386/node:9-stretch as nodebuild
 COPY --from=gobuild /go/src/app/src/github.com/grafana/grafana /node/grafana
 
 WORKDIR /node/grafana
-RUN npm install -g yarn && yarn install --pure-lockfile && npm run watch
+RUN yarn install --pure-lockfile
+WORKDIR /node/grafana
+RUN yarn run dev
 
 #create grafana docker image
 FROM i386/debian:stretch-slim
@@ -42,11 +44,12 @@ RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certifica
              "$GF_PATHS_PROVISIONING/dashboards" \
              "$GF_PATHS_LOGS" \
              "$GF_PATHS_PLUGINS" \
+             "$GF_PATHS_HOME/.aws" \
              "$GF_PATHS_DATA" && \
     cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
     cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
-    chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
-    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
+    chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
+    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
 
 EXPOSE 3000
 
