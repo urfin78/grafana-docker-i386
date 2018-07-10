@@ -2,5 +2,5 @@
   if [ "$DOCKER_TAG" = "latest" ]; then
     docker build -f Dockerfile -t ${IMAGE_NAME} .
   else
-    docker build -f Dockerfile.ver --build-arg VERSION_ARG="$DOCKER_TAG" -t ${IMAGE_NAME} .
+    docker build -f Dockerfile.tag --build-arg VERSION_ARG="$DOCKER_TAG" -t ${IMAGE_NAME} .
   fi
