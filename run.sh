@@ -1,3 +1,4 @@
+# taken directly from from https://github.com/grafana/grafana-docker
 #!/bin/bash -e
 
 PERMISSIONS_OK=0
