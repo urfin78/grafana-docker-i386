@@ -39,7 +39,7 @@ COPY --from=nodebuild /node/grafana/conf ${GF_PATHS_HOME}/conf
 COPY --from=nodebuild /node/grafana/public ${GF_PATHS_HOME}/public
 COPY --from=nodebuild /node/grafana/scripts ${GF_PATHS_HOME}/scripts
 COPY --from=nodebuild /node/grafana/tools ${GF_PATHS_HOME}/tools
-COPY --from=nodebuild /node/grafana/*.md ${GF_PATHS_HOME}
+COPY --from=nodebuild /node/grafana/*.md ${GF_PATHS_HOME}/
 
 RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certificates && \
     apt-get autoremove -y && \
