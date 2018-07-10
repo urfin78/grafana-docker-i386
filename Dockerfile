@@ -2,11 +2,14 @@
 #build grafana server go app
 FROM i386/golang:1.10-stretch as gobuild
 
+ARG VERSION_ARG
+
 WORKDIR /go/src/app
 RUN export GOPATH=/go/src/app && \
     go get github.com/grafana/grafana; exit 0
 WORKDIR /go/src/app/src/github.com/grafana/grafana
 RUN export GOPATH=/go/src/app && \
+    git checkout tags/$VERSION_ARG && \
     go run build.go setup && \
     go run build.go build
 
