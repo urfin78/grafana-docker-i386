@@ -4,3 +4,6 @@
 Build grafana docker container for i386 systems
 
 build upon dockerfile and scripts from https://github.com/grafana/grafana-docker
+
+## License
+This code is distributed under Apache 2.0 License.
