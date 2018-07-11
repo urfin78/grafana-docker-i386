@@ -1,4 +1,7 @@
 #build upon dockerfile from https://github.com/grafana/grafana-docker
+#include official grafana container to trigger automated builds
+FROM grafana/grafana as grafanatrigger
+
 #build grafana server go app
 FROM i386/golang:1.10-stretch as gobuild
 
