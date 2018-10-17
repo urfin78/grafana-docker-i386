@@ -3,7 +3,7 @@
 FROM grafana/grafana as grafanatrigger
 
 #build grafana server go app
-FROM i386/golang:1.10-stretch as gobuild
+FROM i386/golang:1.11-stretch as gobuild
 
 WORKDIR /go/src/app
 RUN export GOPATH=/go/src/app && \
