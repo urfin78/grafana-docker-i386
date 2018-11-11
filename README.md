@@ -5,14 +5,12 @@ Build grafana docker container for i386 systems
 
 build upon dockerfile and scripts from https://github.com/grafana/grafana-docker
 
-Available tags: 
+Available tags:
 * latest
+* 5.3.2
+* 5.3.1
 * 5.3.0
 * 5.2.5
-* 5.2.4
-* 5.2.3
-* 5.2.2
-* 5.2.1
 * 5.1.5
 * 5.0.4
 
