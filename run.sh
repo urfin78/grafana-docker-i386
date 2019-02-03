@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# taken directly from from https://github.com/grafana/grafana-docker
+# https://github.com/grafana/grafana/blob/master/packaging/docker/run.sh
 
 PERMISSIONS_OK=0
 
@@ -68,16 +68,23 @@ if [ ! -z "${GF_INSTALL_PLUGINS}" ]; then
   IFS=','
   for plugin in ${GF_INSTALL_PLUGINS}; do
     IFS=$OLDIFS
-    grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install ${plugin}
+    if [[ $plugin =~ .*\;.* ]]; then
+        pluginUrl=$(echo "$plugin" | cut -d';' -f 1)
+        pluginWithoutUrl=$(echo "$plugin" | cut -d';' -f 2)
+        grafana-cli --pluginUrl "${pluginUrl}" --pluginsDir "${GF_PATHS_PLUGINS}" plugins install ${pluginWithoutUrl}
+    else
+        grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install ${plugin}
+    fi  
   done
 fi
 
-exec grafana-server                                         \
-  --homepath="$GF_PATHS_HOME"                               \
-  --config="$GF_PATHS_CONFIG"                               \
-  "$@"                                                      \
-  cfg:default.log.mode="console"                            \
-  cfg:default.paths.data="$GF_PATHS_DATA"                   \
-  cfg:default.paths.logs="$GF_PATHS_LOGS"                   \
-  cfg:default.paths.plugins="$GF_PATHS_PLUGINS"             \
+exec grafana-server                                         \   
+  --homepath="$GF_PATHS_HOME"                               \   
+  --config="$GF_PATHS_CONFIG"                               \   
+  --packaging=docker                                        \   
+  "$@"                                                      \   
+  cfg:default.log.mode="console"                            \   
+  cfg:default.paths.data="$GF_PATHS_DATA"                   \   
+  cfg:default.paths.logs="$GF_PATHS_LOGS"                   \   
+  cfg:default.paths.plugins="$GF_PATHS_PLUGINS"             \   
   cfg:default.paths.provisioning="$GF_PATHS_PROVISIONING"

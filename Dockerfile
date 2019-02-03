@@ -1,7 +1,7 @@
 #build upon dockerfile from https://github.com/grafana/grafana-docker
 
 #build grafana server go app
-FROM i386/golang:1.11-stretch as gobuild
+FROM i386/golang:1.11.5-stretch as gobuild
 
 WORKDIR /go/src/app
 RUN export GOPATH=/go/src/app && \
@@ -12,7 +12,7 @@ RUN export GOPATH=/go/src/app && \
     go run build.go build
 
 # build grafana frontend nodejs
-FROM i386/node:9-stretch as nodebuild
+FROM i386/node:10.14.2-stretch as nodebuild
 
 COPY --from=gobuild /go/src/app/src/github.com/grafana/grafana /node/grafana
 
