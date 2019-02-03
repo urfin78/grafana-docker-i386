@@ -12,7 +12,7 @@ RUN export GOPATH=/go/src/app && \
     go run build.go build
 
 # build grafana frontend nodejs
-FROM i386/node:10.14.2-stretch as nodebuild
+FROM i386/node:10.15.1-stretch as nodebuild
 
 COPY --from=gobuild /go/src/app/src/github.com/grafana/grafana /node/grafana
 
