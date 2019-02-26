@@ -1,7 +1,7 @@
 #build upon dockerfile from https://github.com/grafana/grafana-docker
 
 #build grafana server go app
-FROM i386/golang:1.11-stretch as gobuild
+FROM i386/golang:1.11.5-stretch as gobuild
 
 ARG VERSION_ARG
 
@@ -15,14 +15,16 @@ RUN export GOPATH=/go/src/app && \
     go run build.go build
 
 # build grafana frontend nodejs
-FROM i386/node:9-stretch as nodebuild
+FROM i386/node:10.15.1-alpine as nodebuild
+RUN apk --no-cache add --virtual native-deps g++ gcc libgcc libstdc++ linux-headers make python
 
 COPY --from=gobuild /go/src/app/src/github.com/grafana/grafana /node/grafana
 
 WORKDIR /node/grafana
 RUN yarn install --pure-lockfile
 WORKDIR /node/grafana
-RUN yarn run dev
+RUN yarn run dev && \
+    apk del native-deps
 
 #create grafana docker image
 FROM i386/debian:stretch-slim
