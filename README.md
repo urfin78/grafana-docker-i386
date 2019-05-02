@@ -7,7 +7,7 @@ build upon dockerfile and scripts from https://github.com/grafana/grafana-docker
 
 Available tags:
 * latest
-* 6.1.4 6.1.3 6.1.2 6.1.1 6.1.0
+* 6.1.6 6.1.5 6.1.4 6.1.3 6.1.2 6.1.1 6.1.0
 * 6.0.2 6.0.1 6.0.0 
 * 5.4.3 5.4.2 5.4.1 5.4.0 
 * 5.3.4 5.3.2 5.3.1 5.3.0
