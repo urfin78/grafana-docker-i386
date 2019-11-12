@@ -1,7 +1,7 @@
 #build upon dockerfile from https://github.com/grafana/grafana-docker
 
 #build grafana server go app
-FROM i386/golang:1.13-buster as gobuild
+FROM i386/golang:1.12-buster as gobuild
 
 ARG VERSION_ARG
 
