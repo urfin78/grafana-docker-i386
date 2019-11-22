@@ -15,7 +15,7 @@ RUN export GOPATH=/go/src/app && \
     go run build.go build
 
 # build grafana frontend nodejs
-FROM i386/node:10.17-alpine as nodebuild
+FROM i386/node:12-alpine as nodebuild
 RUN apk --no-cache add --virtual native-deps g++ gcc libgcc libstdc++ linux-headers make python
 
 COPY --from=gobuild /go/src/app/src/github.com/grafana/grafana /node/grafana
