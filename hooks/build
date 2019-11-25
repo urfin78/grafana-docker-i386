@@ -2,5 +2,10 @@
   if [ "$DOCKER_TAG" = "latest" ]; then
     docker build -f Dockerfile -t ${IMAGE_NAME} .
   else
-    docker build -f Dockerfile.tag --build-arg VERSION_ARG="v$DOCKER_TAG" -t ${IMAGE_NAME} .
+    ver="6.5.0"
+    if [ "$(printf '%s\n' "$ver" "$DOCKER_TAG" | sort -V | head -n1)" = "$ver" ]; then
+	    docker build -f Dockerfile.tag --build-arg VERSION_ARG="v$DOCKER_TAG" -t ${IMAGE_NAME} .
+    else
+	    docker build -f Dockerfile.tag_pre65 --build-arg VERSION_ARG="v$DOCKER_TAG" -t ${IMAGE_NAME} .
+    fi
   fi
