@@ -1,12 +1,12 @@
 # grafana-docker-i386
 
-Build grafana docker container for i386 systems
+Build grafana docker container for i386 systems.
 
 The images are available here: https://hub.docker.com/repository/docker/urfin78/grafana-i386
 Build upon dockerfile and scripts from https://github.com/grafana/grafana-docker
 
 Works up to version **6.5.3**.
-Doesn't work from version **6.6.0** as Grafana is now using [cypress](https://cypress.io) which has no support fpr 32bit Linux.
+Doesn't work from version **6.6.0** as Grafana is now using [cypress](https://cypress.io) which has no support for 32bit Linux.
 
 Available tags:
 * latest = 6.5.3
